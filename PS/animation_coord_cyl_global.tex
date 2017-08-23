@@ -1,6 +1,5 @@
-%\def\nbIMAGES{36}
 \begin{animateinline}[autoplay,loop,controls]{10}
-    \multiframe{\nbIMAGES}{rangle=0+10}{
+    \multiframe{36}{rangle=0+10}{
 \begin{tikzpicture}[scale=6]
 
 %% Les valeurs utiles
@@ -36,9 +35,9 @@
   \draw [->] (0,-0.2,0) -- (0,0.8,0) node [left] {$z$} ;
   \draw [->] (0,0,-0.2) -- (0,0,0.8) node [left] {$x$} ;
   \draw [ultra thick,->] (O) -- (M) node [pos=0.5,above left=-2pt] {$\vect{OM}$} ;
-  \draw [ultra thick,->] (M) -- (Mr) node [right] {\ver} ;
-  \draw [ultra thick,->] (M) -- (Mt) node [above right=-4pt] {\vetheta} ;
-  \draw [ultra thick,->] (M) -- (Mz) node [right] {\vez} ;
+  \draw [ultra thick,->] (M) -- (Mr) node [right] {$\ver$} ;
+  \draw [ultra thick,->] (M) -- (Mt) node [above right=-4pt] {$\vetheta$} ;
+  \draw [ultra thick,->] (M) -- (Mz) node [right] {$\vez$} ;
   \draw [dashed] (O) -- (P) -- (M)   node [pos=0.5,right] {$z$}  ;
   \draw [dashed] (O) -- (H) node [left] {H} 
   		-- (M) node [pos=0.5, above] {$r$} ;
