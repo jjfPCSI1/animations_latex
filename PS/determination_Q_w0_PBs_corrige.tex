@@ -1,0 +1,89 @@
+\sisetup{round-mode=places,round-precision=1}
+\begin{animateinline}[final,autoplay,controls,poster=last]{1}
+    \multiframe{10}{iCOUNT=1+1}{
+\begin{tikzpicture}[declare function = {
+module(\x) = \E / sqrt((1-(\x/\fZ)^2)^2 + (\x/(\Q*\fZ))^2) ;
+phase(\x)  = (0-90 - atan(\Q*(\x/\fZ - \fZ/\x)))/60 ;
+}]
+
+\pgfmathsetmacro{\Q}{1.2}
+\pgfmathsetmacro{\E}{3}
+\pgfmathsetmacro{\fZ}{2.2}
+\pgfmathsetmacro{\fMAX}{3.1*\fZ}
+\pgfmathsetmacro{\zMAX}{1.2*\Q*\E}
+
+\draw [help lines] (0,0) grid ({\fMAX},{\Q*\E*1.2}) ;
+\draw [->,thick] (-10pt,0) -- ({\fMAX},0) node [below right] {$f$ (Hz)}   ;
+\draw [->,thick] (0,-10pt) -- (0,{\zMAX}) node [above left] {$u_0$ (V)};
+\draw [mark=*,only marks,domain=0:{\fMAX},samples=15] plot (\x,{module(\x)}) ;
+
+\pgfmathsetmacro{\FIN}{int(\fMAX)}
+\foreach \x in {1,2,...,\FIN} {
+    \pgfmathsetmacro{\y}{int(10*\x)}
+    \draw (\x,0) node [below] {$\y$} ;
+}
+
+\pgfmathsetmacro{\FIN}{int(\zMAX)}
+\foreach \x in {1,2,...,\FIN} {
+    \draw (0,\x) node [left] {$\x$} ;
+}
+
+\begin{scope}[blue]
+\ifthenelse{\iCOUNT > 5}{
+  \draw [fill] (0,\E) circle (3pt);
+  \draw (1,\zMAX) node [above] {$E_0=\E$}  ;
+  \ifthenelse{\iCOUNT > 6}{
+    \draw [domain=0:{\fMAX},samples=50] plot (\x,{module(\x)}) ;
+    \ifthenelse{\iCOUNT > 7}{
+      \draw [dashed,thick] (\fZ,0) -- (\fZ,{\Q*\E}) ;
+      \draw [fill] (\fZ,{\Q*\E}) circle (2pt) ;
+      \ifthenelse{\iCOUNT > 8}{
+        \pgfmathsetmacro{\y}{\Q*\E}
+        \draw [dashed,thick] (\fZ,{\Q*\E}) --++ (-\fZ,0) ;
+        \draw (3,\zMAX) node [above] {$QE_0=\num{\y}$} ;
+        \ifthenelse{\iCOUNT > 9}{
+          \draw (6,\zMAX) node [above=-4pt] {donc $\boxed{Q=\Q}$} ;
+        }{}
+      }{}
+    }{}
+  }{}
+}{}
+\end{scope}
+
+\begin{scope}[shift={(\fMAX+1.5,3)}]
+%\draw (0,0) circle (2mm) ;
+\draw [->,thick](0,0) -- (\fMAX,0) node [above right] {$f$ (Hz)} ;
+\draw [->,thick](0,-3) -- (0,1.3) node [above right] {$\ph$ (degré)} ;
+\draw [help lines] (0,1) grid (\fMAX,-3) ;
+\draw [mark=*,only marks,domain=0.001:{\fMAX},samples=15] plot (\x,{phase(\x)}) ;
+
+\pgfmathsetmacro{\FIN}{int(\fMAX)}
+\foreach \x in {1,2,...,\FIN} {
+    \pgfmathsetmacro{\y}{int(10*\x)}
+    \draw (\x,0) node [above] {$\y$} ;
+}
+\foreach \x in {1,0,...,-2} {
+    \pgfmathsetmacro{\y}{int(60*\x)}
+    \draw (0,\x) node [left] {$\y$} ;
+}
+
+\begin{scope}[blue]
+\ifthenelse{\iCOUNT > 1}{
+  \draw [domain=0.001:{\fMAX},samples=50] plot (\x,{phase(\x)}) ;
+}{}
+\ifthenelse{\iCOUNT > 2}{
+  \draw (0,-1.5) node [left] {$-90$} ;
+  \ifthenelse{\iCOUNT > 3}{
+    \draw [dashed,thick] (0,-1.5) -- (\fZ,-1.5) ;
+    \draw [fill] (\fZ,-1.5) circle (2pt) ;
+    \ifthenelse{\iCOUNT > 4}{
+      \pgfmathsetmacro{\y}{int(round(\fZ*10))}
+      \draw [dashed,thick] (\fZ,-1.5) -- (\fZ,1.2) node [above right=-4pt] {\fbox{$f_0=\y$ Hz}} ;
+    }{}
+  }{}
+}{}
+\end{scope}
+\end{scope}
+\end{tikzpicture}
+}
+\end{animateinline}
