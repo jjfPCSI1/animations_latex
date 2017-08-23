@@ -1,0 +1,65 @@
+\begin{animateinline}[autoplay,loop,controls]{10}
+    \multiframe{36}{rangle=0+10}{
+\begin{tikzpicture} [scale=0.75, decoration={coil,aspect=0.4,segment 
+length=3mm,amplitude=3mm}]
+%decoration : gère l'aspect du ressort par l'instruction decorate
+\tikzset{ressort/.style={thick,gray,smooth}} %définition d'un style de ressort
+
+\draw [dashed] (4.5,2) --++ (0,-8);
+\draw node [above] at (4.5,2) {O}; 
+\draw [->] (0,2) --++ (7,0) node [above] {$x$};
+
+\pgfmathsetmacro{\ELLZERO}{4.5}
+\pgfmathsetmacro{\AMPLITUDE}{1.3}
+\pgfmathsetmacro{\ELLUP}{  \ELLZERO - \AMPLITUDE*cos(\rangle)}
+\pgfmathsetmacro{\ELLDOWN}{\ELLZERO + \AMPLITUDE*cos(\rangle)}
+\pgfmathsetmacro{\K}{3}
+
+
+%\newcommand{\ellmacro}[1]{
+%\ifthenelse{\equal{#1}{\ELLZERO}}{\ell_0}{\ell(t)}
+%}
+
+% #1 -> la longueur du ressort
+% #2 -> \ell_0 ou \ell(t)
+\newcommand{\systemeMasseRessort}[3]{
+
+%bloc qui tient le ressort 
+\draw[thick,gray] (0,0) -- (0.3,0); 
+\fill [pattern=north east lines] (0,0.5) rectangle (-0.3,-0.5); 
+%pattern définit un style de remplissage de la forme
+\draw[thick](0,0.5)--(0,-0.5); %fin ressort
+% Le ressort proprement dit
+\draw[ressort,decorate,decoration={coil,aspect=0.62,segment length = #1 mm,amplitude=3mm}] 
+(0.3,0)--(#1,0) ;
+% La légende au-dessus
+\draw[line width=0.5pt,<->](0,+0.8) -- (#1,+0.8) node [midway,above] {$#2$} ;
+% La masse
+\draw [rounded corners=4pt,color=white,ball color=gray,smooth] (#1,-0.5) rectangle ({#1+1},0.5);
+\draw[thick](2,-0.5)--(7.3,-0.5); %fin du plancher
+\fill [pattern=north east lines] (2,-0.5) rectangle (7.3,-0.8); 
+\draw [very thick,-latex] ({#1+0.5},0)--++(0,-1.5) node [right] {$\vect{P}$};
+\draw [very thick,-latex] ({#1+0.6},-0.5)--++(0,1.5) node [right] {$\vect{N}$};
+% Si on est à \ell_0, pas de flèche, sinon on la marque
+\ifthenelse{\equal{#1}{\ELLZERO}}{
+\draw (#1,0) node [above] {$#3$} ;
+}{
+\draw [very thick,-latex] (#1,0)--++({-\K*(#1-\ELLZERO)},0) node [midway,above] {$\vect{T}$};
+}
+}
+
+
+\begin{scope}[yshift=0cm]
+\systemeMasseRessort{\ELLUP}{\ell(t)}{\vect{T}}
+\end{scope}
+
+\begin{scope}[yshift=-3cm]
+\systemeMasseRessort{\ELLZERO}{\ell_0}{}
+\end{scope}
+
+\begin{scope}[yshift=-6cm]
+\systemeMasseRessort{\ELLDOWN}{\ell(t)}{\vect{T}}
+\end{scope}
+\end{tikzpicture}
+}
+\end{animateinline}

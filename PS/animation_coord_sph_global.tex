@@ -1,0 +1,194 @@
+%% Les valeurs utiles
+
+
+\def\nbIMAGES{36}
+\begin{animateinline}[autoplay,loop,controls]{4}
+    \multiframe{\nbIMAGES}{rangle=0+10}{
+
+\begin{tikzpicture}[scale=1.5]
+\pgfsetzvec{\pgfpointxy{-0.30619}{-0.17678}}
+
+\pgfmathsetmacro{\THETAr}{int(35+\rangle/2)}
+\pgfmathsetmacro{\PHIr}{int(40+\rangle)}
+
+\draw (0,0) -- (1,0) ;
+
+%\ifthenelse{\THETAr<10}{Go}{RCS}
+
+\ifthenelse{{\THETAr > 180}}{
+  \pgfmathsetmacro{\THETA}{\THETAr-180}
+}{
+  \pgfmathsetmacro{\THETA}{\THETAr}
+}
+
+
+
+%\ifthenelse{\PHIr > 360}{
+%  \pgfmathsetmacro{\PHI}{\PHIr - 360}
+%}{
+%  \pgfmathsetmacro{\PHI}{\PHIr}
+%}
+
+\pgfmathsetmacro{\PHI}{60*cos(2*\rangle)}
+
+
+
+\pgfmathsetmacro{\R}{3}
+\pgfmathsetmacro{\UNIT}{0.7}
+\pgfmathsetmacro{\Z}{\R*cos(\THETA)}
+\pgfmathsetmacro{\X}{\R*sin(\THETA)*cos(\PHI)}
+\pgfmathsetmacro{\Y}{\R*sin(\THETA)*sin(\PHI)}
+
+
+\coordinate (M) at (\Y,\Z,\X) ;
+\coordinate (P) at (\Y, 0,\X) ;
+\coordinate (H) at ( 0,\Z, 0) ;
+\coordinate (O) at ( 0, 0, 0) ;
+%\coordinate (Mr) at ({(M) + \UNIT*(-sin(\THETA)*sin(\PHI),cos(\THETA),sin(\THETA)*cos(\PHI))}) ;
+
+
+%\clip  (-3.1,-0.7) rectangle (3.5,3.5);
+
+%% Les axes
+
+\draw [->,semithick] (-4.5,0,0) -- (4.5,0,0)  node [right] {$y$} ;
+%\draw [semithick] ({\R*sin(-75)},0,{\R*cos(-75)}) -- ({-\R},0,{\R}) -- ({\R},0,{\R}) 
+%	-- ({\R},0,{-\R}) -- ({-\R},0,{-\R}) ;
+\draw [semithick] ({(\R)*sin(-75)*sin(75)},{(\R)*cos(75)},{(\R)*cos(-75)*sin(75)})
+	-- ({-\R-1},0,{\R+1}) -- ({\R+1},0,{\R+1}) 
+	-- ({\R+1},0,{-\R-1}) -- ({-\R-1},0,{-\R-1}) ;
+\filldraw [white] (O) circle ({\R}) ;
+%\draw [semithick] ({\R*sin(-75)},0,{\R*cos(-75)}) -- ({-\R},0,{\R}) -- ({\R},0,{\R}) 
+%	-- ({\R},0,{-\R}) ;
+\draw [semithick] 
+	   ({-\R-1},0,{\R+1}) -- ({\R+1},0,{\R+1}) 
+	-- ({\R+1},0,{-\R-1});
+\draw [->,semithick] (0,-4,0) -- (0,3.5,0)  node [right] {$z$} ;
+
+% Les différents méridiens pour voir la sphère
+\foreach \p in {-75,-60,...,90} {
+  \draw [dotted] (0,\R,0)
+    \foreach \t in {0,10,...,160} {
+        -- ({\R*sin(\t)*sin(\p)},{\R*cos(\t)},{\R*sin(\t)*cos(\p)}) 
+    } ;
+}
+
+% Et les différents parallèles
+\foreach \t in {0,20,...,180} {
+  \draw [dotted] ({\R*sin(\t)*sin(-70)},{\R*cos(\t)},{\R*cos(-70)*sin(\t)})
+   \foreach \p in {-70,-60,...,90} {
+        -- ({\R*sin(\t)*sin(\p)},{\R*cos(\t)},{\R*sin(\t)*cos(\p)}) 
+   } ;
+}
+
+\pgfmathsetmacro{\t}{90}
+  \draw ({\R*sin(\t)*sin(-70)},{\R*cos(\t)},{\R*cos(-70)*sin(\t)})
+   \foreach \p in {-70,-60,...,90} {
+        -- ({\R*sin(\t)*sin(\p)},{\R*cos(\t)},{\R*sin(\t)*cos(\p)}) 
+   } ;
+
+
+%\draw [dashed] (0,0,{-\R-1.5}) -- (0,0,\R) ; % x
+\draw [dashed] (0,0,{0}) -- (0,0,\R) ; % x
+%\draw [dashed] (0,{-\R},0) -- (0,\R,0) ; % z
+%\draw [dashed] ({-\R},0,0) -- (\R,0,0) ; % y
+\draw [->,semithick] (0,0,\R) -- (0,0,{\R+2})  node [below] {$x$} ;
+%\draw [->] (\R,0,0) -- ({\R+0.5},0,0) node [above] {$y$} ;
+%\draw [->] (0,\R,0) -- (0,{\R+0.5},0) node [right] {$z$} ;
+%\draw ({-\R},0,0) -- ({-0.5-\R},0,0)
+%      (0,{-\R},0) -- (0,{-0.5-\R},0) ;
+
+
+% Le cercle
+
+
+%\filldraw [thick, fill=gray] (O) -- (H) node [pos=0.5,left] {$r\cos\theta$} 
+%		-- (M) 		
+%		-- (P) -- (O) 
+%		;
+\draw [thick] (O) -- (H) %node [pos=0.5,\ifthenelse{\PHI>0}{left}{right}] {$r\cos\theta$} 
+		-- (M) 		
+		-- (P) -- (O) 
+		;
+
+%\draw [semithick,dotted] (0,0,\X) -- (P) -- (\Y,0,0) ;
+
+\coordinate (Mi) at ($ 0.7*(P) + 0.3*(O)$);
+\coordinate (Mib) at ($ (Mi) + (-0.2,-0.2) $);
+\coordinate (Orig) at (2.5,-2.5) ;
+
+\draw [<-] (Mi) .. controls (0,-1.5) and (1.5,0) .. (Orig)
+		node [below=-3pt] {$ r\sin\theta$} ;
+
+\draw [<-] (-0.1,{\Z/2}) .. controls (-1.5,0) and (0,1.5) .. (-2.5,2.5)
+		node [above=-3pt] {$ r\cos\theta$} ;
+
+
+% Position des points principaux
+%  \filldraw[black] (M) circle(1pt) node [left] {$M$} ;
+  \filldraw[black] (H) circle(1pt) node [left] {$H$} ;
+  \filldraw[black] (P) circle(1pt) node [below] {$P$} ;
+
+%% Les lignes d'angles
+  \draw [ultra thick,->] (O) -- (M) node [pos=0.5,below] {$\quad r$};
+
+
+%% Les ellipses des construction
+    
+% Le méridien d'abord
+\draw [dashed,semithick] (0,\R,0)
+    \foreach \t in {0,10,...,180} {
+        -- ({\R*sin(\t)*sin(\PHI)},{\R*cos(\t)},{\R*sin(\t)*cos(\PHI)}) 
+    } ;
+
+% Le parallèle ensuite
+\draw [dashed,semithick] ({-\R*sin(\THETA)*sin(70)},{\R*cos(\THETA)},{\R*cos(70)*sin(\THETA)})
+   \foreach \p in {-70,-60,...,90} {
+        -- ({\R*sin(\THETA)*sin(\p)},{\R*cos(\THETA)},{\R*sin(\THETA)*cos(\p)}) 
+   } ;
+    
+%  \ELLIPSEUN
+%%  \ELLIPSEDEUX
+%  \ELLIPSETROIS
+%%  \ELLIPSEQUATRE
+
+%% Vecteurs
+%\VER
+\draw [->,ultra thick,shift={(M)}] (0,0,0) -- ({\UNIT*sin(\THETA)*sin(\PHI)},{\UNIT*cos(\THETA)},{\UNIT*sin(\THETA)*cos(\PHI)}) node [right] {$\ver$};
+%\VETHETA
+\draw [->,ultra thick,shift={(M)}] (0,0,0) -- ({\UNIT*cos(\THETA)*sin(\PHI)},{-\UNIT*sin(\THETA)},{\UNIT*cos(\THETA)*cos(\PHI)}) node [right] {$\vetheta$};
+%\VEPHI
+\draw [->,ultra thick,shift={(M)}] (0,0,0) -- ({\UNIT*cos(\PHI)},{0},{-\UNIT*sin(\PHI)}) node [right] {$\vephi$};
+
+%  \draw (0,-3) -- (0,3) ;
+
+%% Angles
+
+
+
+%\THETA
+{
+\pgfmathsetmacro{\R}{1}
+% Le méridien d'abord
+\draw [->,thick] (0,\R,0)
+    \foreach \t in {0,...,10} {
+        -- ({\R*sin(\t*\THETA/10.0)*sin(\PHI)},{\R*cos(\t*\THETA/10.0)},{\R*sin(\t*\THETA/10.0)*cos(\PHI)}) 
+    } ;
+\draw ({\R*sin(\THETA/2)*sin(\PHI)},{\R*cos(\THETA/2)},{\R*sin(\THETA/2)*cos(\PHI)})
+	node [above right=-2pt] {$\theta$};
+
+%\PHI
+% Le parallèle ensuite
+\draw [->,thick] ({\R*sin(90)*sin(0)},{\R*cos(90)},{\R*cos(0)*sin(90)}) 
+   \foreach \t in {0,...,10} {
+        -- ({\R*sin(90)*sin(\PHI*\t/10.0)},{\R*cos(90)},{\R*sin(90)*cos(\PHI*\t/10.0)}) 
+   } ;
+\draw ({\R*sin(90)*sin(\PHI/2.0)},{\R*cos(90)},{\R*cos(\PHI/2)*sin(90)}) node [below=-2pt] {$\ph$} ;
+
+}
+
+\end{tikzpicture}
+}
+\end{animateinline}
+\end{document}
+

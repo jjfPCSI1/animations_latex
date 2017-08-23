@@ -1,0 +1,41 @@
+\begin{animateinline}[final,autoplay,loop,controls,poster=last]{5}
+    \multiframe{33}{rangle=00+30}{
+\begin{tikzpicture}[scale=0.75, decoration={coil,aspect=0.4,segment 
+length=3mm,amplitude=3mm}, 
+declare function = {
+solution(\x,\A,\B) = (exp(-\LAMBDA*\x/360)*(\A*cos(\OMEGA*\x) + \B*sin(\OMEGA*\x))/2 ;
+%vitesse(\x,\A,\B)  = (exp(-\LAMBDA*\x/360)*((\B*\OMEGA*\CORRO-\A*\LAMBDA*\CORRL)*cos(\OMEGA*\x) - (\A*\OMEGA*\CORRO+\B*\LAMBDA*\CORRL)*sin(\OMEGA*\x))/10 ;
+vitesse(\x,\A,\B)  = (exp(-\LAMBDA*\x/360)*((\B*\OMEGA-\A*\LAMBDA/360)*cos(\OMEGA*\x) - (\A*\OMEGA+\B*\LAMBDA/360)*sin(\OMEGA*\x))/2 ;
+}]
+\tikzset{ressort/.style={thick,gray,smooth}}
+\pgfmathsetmacro{\LAMBDA}{2}
+\pgfmathsetmacro{\OMEGA}{1}
+\pgfmathsetmacro{\CORRO}{3.14159/180}
+\pgfmathsetmacro{\CORRL}{3.14159*2}
+\begin{scope}[xshift=0cm]
+%\draw (4,3.5) node {Amortissement fort} ;
+\draw [->,thick] (0,-3) -- (0,3) node [right] {$\dot{z}$};
+\draw [->,thick] (-3,0) -- (3,0) node [above] {$z$} ;
+\draw [smooth,ultra thick,domain=0:{\rangle/180},samples={1+\rangle/10},variable=\x] plot
+({solution(\x*180,0,4)},{vitesse(\x*180,0,4)}) ;
+\draw [smooth,ultra thick,dashed,domain=0:{\rangle/180},samples={1+\rangle/10},variable=\x] plot
+({solution(\x*180,5,-5)},{vitesse(\x*180,5,-5)}) ;
+\draw [smooth,dotted,ultra thick,domain=0:{\rangle/180},samples={1+\rangle/10},variable=\x] plot
+({solution(\x*180,4,0)},{vitesse(\x*180,4,0)}) ;
+
+
+\end{scope}
+\begin{scope}[xshift=8cm]
+\draw [smooth,ultra thick,domain=0:{\rangle/180},samples={1+\rangle/30}] plot 
+(\x,{solution(\x*180,0,4)}) ;
+\draw [smooth,dotted,ultra thick,domain=0:{\rangle/180},samples={1+\rangle/30}] plot 
+(\x,{solution(\x*180,4,0)}) ;
+\draw [smooth,ultra thick,dashed,domain=0:{\rangle/180},samples={1+\rangle/30}] plot 
+(\x,{solution(\x*180,5,-5)}) ;
+\draw [->,thick] ({-2pt},0) -- ({1100/180},0) node [above] {$t$}; 
+\draw [->,thick] (0,{-3}) -- (0,3) node [right] {$z(t)$} ;
+\end{scope}
+\end{tikzpicture}
+}
+\end{animateinline}
+

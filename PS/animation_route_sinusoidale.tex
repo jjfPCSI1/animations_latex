@@ -1,0 +1,63 @@
+\newcommand{\ALTITUDE}[2]{\amplitude*cos(360*#1/2.5 - #2)}
+\newcommand{\VOITURE}[3]{
+% #1 Abscisse roue 1
+% #2 amplification
+% #3 déphasage
+\pgfmathsetmacro{\roue}{0.5}
+\pgfmathsetmacro{\decalage}{2.5}
+\pgfmathsetmacro{\XROUEDEUX}{#1+\decalage}
+\pgfmathsetmacro{\XV}{#1-1.25}
+\pgfmathsetmacro{\V}{#2}
+\pgfmathsetmacro{\VZERO}{3}
+\pgfmathsetmacro{\Q}{10}
+\pgfmathsetmacro{\ranglephi}{\rangle+#3}
+\pgfmathsetmacro{\YV}{\roue + #2*\ALTITUDE{#1}{\ranglephi} }
+
+    \shade[top color=red, bottom color=white, shading angle={135}]
+        [draw=black,fill=red!20,rounded corners=1.2ex,very thick] (\XV,\YV) -- ++(0,1) -- ++(1,0.3) --  ++(3,0) -- ++(1,0) -- ++(0,-1.3) -- (\XV,\YV) -- cycle;
+    \draw[very thick, rounded corners=0.5ex,fill=black!20!blue!20!white,thick]  (\XV+1,\YV+1.3) -- ++(1,0.7) -- ++(1.6,0) -- ++(0.6,-0.7) -- (\XV+1,{\YV+1.3});
+    \draw[thick]  (\XV+3.2,{\YV+1.3}) -- (\XV+3.2,{\YV+2});
+    \ROUE{\roue}{#1}{{\roue+\ALTITUDE{#1}{\rangle}}} 
+    \ROUE{\roue}{\XROUEDEUX}{{\roue+\ALTITUDE{\XROUEDEUX}{\rangle}}} 
+}
+\newcommand{\ROUE}[3]{
+% #1 -> rayon externe
+% #2 -> abscisse centre
+% #3 -> altitude centre
+\draw [draw=black,fill=gray!50,thick] (#2,#3) circle (#1) ;
+\draw [draw=black,fill=gray!80,semithick] (#2,#3) circle ({0.8*#1}) ;
+}
+\newcommand{\graphiqueVitesse}[3]{
+% #1 -> vitesse (1, 3 ou 9), résonance à 3
+% #2 -> titre
+% #3 -> rangle
+\begin{tikzpicture}
+\pgfmathsetmacro{\amplitude}{0.2}
+\draw [smooth,samples=100,domain=0:5.5] plot(\x,\ALTITUDE{\x}{#3}) ;%{\amplitude*cos(360*\x/2.5 - #3)}) ;
+\draw (2.75,3.5) node {#2};
+
+\VOITURE{1.5}{\AMPLIFICATION}{\DEPHASAGE}
+\end{tikzpicture}
+}
+%
+\begin{animateinline}[autoplay,loop,controls]{8}
+    \multiframe{36}{rangle=00+10}{
+\pgfmathsetmacro{\AMPLIFICATION}{1}
+\pgfmathsetmacro{\DEPHASAGE}{0}
+\graphiqueVitesse{1}{Basses vitesses}{\rangle}
+}
+\end{animateinline}
+\begin{animateinline}[autoplay,loop,controls]{16}
+    \multiframe{36}{rangle=00+10}{
+\pgfmathsetmacro{\AMPLIFICATION}{2}
+\pgfmathsetmacro{\DEPHASAGE}{270}
+\graphiqueVitesse{3}{Résonance}{\rangle}
+}
+\end{animateinline}
+\begin{animateinline}[autoplay,loop,controls]{36}
+    \multiframe{36}{rangle=00+10}{
+\pgfmathsetmacro{\AMPLIFICATION}{0.1}
+\pgfmathsetmacro{\DEPHASAGE}{190}
+\graphiqueVitesse{9}{Hautes vitesses}{\rangle}
+}
+\end{animateinline}

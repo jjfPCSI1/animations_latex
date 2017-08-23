@@ -1,0 +1,121 @@
+
+\begin{animateinline}[autoplay,loop,controls]{10}
+    \multiframe{\nbIMAGES}{rangle=0+10}{
+\begin{tikzpicture}
+
+\pgfsetzvec{\pgfpointxy{-0.61237}{-0.35355}}
+
+%% Les valeurs utiles
+
+\pgfmathsetmacro{\z}{1.5+cos(\rangle)}
+\pgfmathsetmacro{\x}{2.3+sin(\rangle)}
+\pgfmathsetmacro{\y}{3.4+1.5*sin(\rangle+45)}
+\pgfmathsetmacro{\dz}{0.2}
+\pgfmathsetmacro{\dx}{0.4}
+\pgfmathsetmacro{\dy}{0.5}
+
+
+
+  \coordinate (M) at (\x,\y,\z) ;
+
+  \filldraw[black] (M) circle(0.5pt) node [left] {$M$} ;
+  \filldraw[black] (0,0) circle(0.5pt) node [above left=-3pt] {$O$} ;
+  
+  \draw [ultra thick,->] (0,0) -- (M) ;
+
+  %% Les 3 axes
+  
+  \draw [->] (0,0) -- (4,0,0) node [left] {$$};
+  \draw [->] (0,0) -- (0,5.2,0) node [above]{$$};
+  \draw [->] (0,0) -- (0,0,4) node [left] {$$};
+
+  %% Les 3 vecteurs
+  
+  \draw [->] [ultra thick] (0,0) -- (1,0,0) node [above] {$\vey$};
+  \draw [->] [ultra thick] (0,0) -- (0,1,0) node [left]{$\vez$};
+  \draw [->] [ultra thick] (0,0) -- (0,0,1) node [above] {$\vex$};
+
+  %% Les 3 positions
+
+  \draw (\x,0,0) node [above right=2pt] {$y$};
+  \draw (0,\y,0) node [left] {$z$};
+  \draw (0,0,\z) node [left] {$x$};
+
+  %% le gros volume
+  \draw [dashed] (M)
+  -- (\x,\y,0 )
+  -- (\x,0 ,0 )
+  -- (\x,0 ,\z)
+     (\x,\y,\z) 
+  -- (\x,0 ,\z)
+  -- (0 ,0 ,\z)
+  -- (0 ,\y,\z)
+     (\x,\y,\z) 
+  -- (0 ,\y,\z)
+  -- (0 ,\y,0 )
+  -- (\x,\y,0 ) 
+  ;
+  
+  %% Les surfaces sur les côtés
+
+  %% À gauche,
+  \filldraw [fill=gray] (\x,0,\z)
+  	-- (\x,0,\z+\dz)
+  	-- (\x+\dx,0,\z+\dz)
+  	-- (\x+\dx,0,\z) 
+  	-- (\x,0,\z) ;
+
+  %% En bas
+  \filldraw [fill=gray] (\x,\y,0)
+  	-- (\x,\y+\dy,0)
+  	-- (\x+\dx,\y+\dy,0)
+  	-- (\x+\dx,\y,0)
+  	-- (\x,\y,0) ;
+
+  %% Derrière
+  \filldraw [fill=gray] (0,\y,\z)
+  	-- (0,\y,\z+\dz)
+  	-- (0,\y+\dy,\z+\dz)
+  	-- (0,\y+\dy,\z)
+  	-- (0,\y,\z) ;
+
+  %% Le Volume
+  \filldraw [thick,fill=gray] 
+%  \draw [thick]
+     (\x+\dx,\y+\dy,\z+\dz)
+  -- (\x    ,\y+\dy,\z+\dz)
+  -- (\x    ,\y    ,\z+\dz)
+  -- (\x+\dx,\y    ,\z+\dz)
+  -- (\x+\dx,\y+\dy,\z+\dz)
+  -- (\x    ,\y+\dy,\z+\dz)
+  -- (\x    ,\y+\dy,\z    )
+  -- (\x+\dx,\y+\dy,\z    )
+  -- (\x+\dx,\y+\dy,\z+\dz)
+  -- (\x+\dx,\y    ,\z+\dz)
+  -- (\x+\dx,\y    ,\z    )
+  -- (\x+\dx,\y+\dy,\z    )
+  -- (\x+\dx,\y+\dy,\z+\dz)
+  ;
+
+  %% Les pointillés de l'un à l'autre
+  % à gauche
+  \draw [dotted]
+  (\x    ,\y,\z+\dz) -- (\x    ,0,\z+\dz)
+  (\x+\dx,\y,\z+\dz) -- (\x+\dx,0,\z+\dz)
+  (\x+\dx,\y,\z    ) -- (\x+\dx,0,\z    )
+  % Derrière
+  (\x,\y    ,\z+\dz) -- (0,\y    ,\z+\dz)
+  (\x,\y+\dy,\z+\dz) -- (0,\y+\dy,\z+\dz)
+  (\x,\y+\dy,\z    ) -- (0,\y+\dy,\z    )
+  % En bas
+  (\x    ,\y+\dy,\z) -- (\x    ,\y+\dy,0)
+  (\x+\dx,\y+\dy,\z) -- (\x+\dx,\y+\dy,0)
+  (\x+\dx,\y    ,\z) -- (\x+\dx,\y    ,0)
+  ;
+
+
+
+\end{tikzpicture}
+}
+\end{animateinline}
+

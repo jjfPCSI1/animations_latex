@@ -1,0 +1,40 @@
+\begin{animateinline}[autoplay,loop,controls,poster=last]{10}
+    \multiframe{33}{rangle=00+30}{
+\begin{tikzpicture}[scale=0.75, decoration={coil,aspect=0.4,segment 
+length=3mm,amplitude=3mm}, 
+declare function = {
+solution(\x,\A,\B) = (\A*exp(-\rU*\x/360) + \B*exp(-\rD*\x/360))*2 ;
+vitesse(\x,\A,\B)  = (-\rU*\A*exp(-\rU*\x/360) - \rD*\B*exp(-\rD*\x/360))/3 ;
+}]
+\tikzset{ressort/.style={thick,gray,smooth}}
+\pgfmathsetmacro{\rU}{2}
+\pgfmathsetmacro{\rD}{3}
+\begin{scope}[xshift=0cm]
+%\draw (4,3.5) node {Amortissement fort} ;
+\draw [->,thick] (0,-3) -- (0,3) node [right] {$\dot{z}$};
+\draw [->,thick] (-3,0) -- (3,0) node [above] {$z$} ;
+\draw [smooth,ultra thick,domain=0:{\rangle/180},samples={1+\rangle/30},variable=\x] plot
+({solution(\x*180,5,-5)},{vitesse(\x*180,5,-5)}) ;
+\draw [smooth,ultra thick,dashed,domain=0:{\rangle/180},samples={1+\rangle/30},variable=\x] plot
+({solution(\x*180,\rD,-\rU)},{vitesse(\x*180,\rD,-\rU)}) ;
+%\draw [smooth,ultra thick,dotted,domain=0:{\rangle/180},samples={1+\rangle/30},variable=\x] plot
+%({solution(\x*180,-\rD,2*\rU)},{vitesse(\x*180,-\rD,2*\rU)}) ;
+\draw [smooth,dotted,ultra thick,domain=0:{\rangle/180},samples={1+\rangle/30},variable=\x] plot
+({solution(\x*180,-5,5.5)},{vitesse(\x*180,-5,5.5)}) ;
+
+
+\end{scope}
+\begin{scope}[xshift=8cm]
+\draw [smooth,ultra thick,domain=0:{\rangle/180},samples={1+\rangle/30}] plot 
+(\x,{solution(\x*180,5,-5)}) ;
+\draw [smooth,dotted,ultra thick,domain=0:{\rangle/180},samples={1+\rangle/30}] plot 
+(\x,{solution(\x*180,-5,5.5)}) ;
+\draw [smooth,ultra thick,dashed,domain=0:{\rangle/180},samples={1+\rangle/30}] plot 
+(\x,{solution(\x*180,\rD,-\rU)}) ;
+\draw [->,thick] ({-2pt},0) -- ({1100/180},0) node [above] {$t$}; 
+\draw [->,thick] (0,{-3}) -- (0,3) node [right] {$z(t)$} ;
+\end{scope}
+\end{tikzpicture}
+}
+\end{animateinline}
+

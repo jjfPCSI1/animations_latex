@@ -1,0 +1,70 @@
+\begin{animateinline}[autoplay,loop,controls,poster=last]{10}
+    \multiframe{33}{rangle=00+30}{
+\begin{tikzpicture}[scale=0.75, decoration={coil,aspect=0.4,segment 
+length=3mm,amplitude=3mm}, 
+declare function = {
+longueur(\x) = 3 + cos(\x)*exp(-1*\x/360) ;
+altitude(\x) = 2.0 - longueur(\x) ; 
+}]
+\tikzset{ressort/.style={thick,gray,smooth}}
+\pgfmathsetmacro{\A}{1.0}
+\pgfmathsetmacro{\taille}{1.1*longueur(\rangle)}
+\begin{scope}[xshift=0cm]
+%ressort 
+\draw[ressort,decorate,decoration={segment length=\taille mm}] (0,2) --(0,{altitude(\rangle)}) ;
+\fill [pattern=north east lines] (-0.5,3.7) rectangle (0.5,4.0);
+\draw[thick,gray] (-0.5,3.7) -- (0.5,3.7);
+\draw[thick,gray] (0,3.7) -- (0,2); 
+\draw [thick, gray] (0,{altitude(\rangle)})--(0,{altitude(\rangle)-0.7});
+\draw [color=white,ball color=gray,smooth] (0,{altitude(\rangle)-0.7}) circle (0.4) node 
+[black,below right=0.2cm] {\scriptsize{M}} ;
+%fin ressort 
+
+%eprouvette 
+\draw [gray,very thick] (-1,-4) --++ (0,5);
+\draw [gray,very thick] (1,-4) --++ (0,5);
+\draw [gray,very thick] (-2,-4) --++ (4,0);
+\fill [gray,opacity=0.2] (-1,-4) rectangle (1,0);
+%fin eprouvette 
+
+%générateur 
+\draw (3,-3.3) rectangle++ (3,1.5) node [midway, above=0.1cm] {Générateur};
+\draw [black] (5.2,-2.7) circle (0.1cm) node [below=0.025cm] 
+{\scriptsize{Masse}};
+\filldraw [black] (3.8,-2.7) circle (0.1cm) node [below=0.025cm] 
+{\scriptsize{+}};
+% fin générateur 
+
+%oscilloscope 
+\draw (3,-1) rectangle++ (3,2) node [midway, above=0.1cm] {Oscilloscope};
+\draw node at (3.7,-0.7) {\scriptsize{Voie 1}};
+\filldraw [black] (3.4,-0.3) circle (0.1cm);
+\draw [black] (4,-0.3) circle (0.1cm);
+%fin oscilloscope 
+
+%fils 
+\draw [red] (3.8,-2.7) --++ (-2,0) --++ (0,4) --++ (-1.1,0) --++ (0,-1.5);
+\draw [black] (5.2,-2.7) --++ (1.5,0) --++ (0,-1.75) --++ (-9,0) --++ (0,5.75) 
+--++ (1.6,0) --++ (0,-5);
+
+\filldraw [black] (-0.85,-3.8) rectangle++ (0.3,0.1) node [right] 
+{\scriptsize{B}};
+\filldraw [red] (0.55,-0.2) rectangle++ (0.3,0.1) node [below] at (0.7,-0.2) 
+{\scriptsize{A}};
+
+\draw [red] (3.4,-0.3) --++ (-0.7,0) --++ (0,3) --++ (-2.7,0) node [left, 
+black] {\scriptsize{M'}};
+\draw [black] (4,-0.3) --++ (2.7,0) --++ (0,-2.4);
+
+%fin fils 
+
+\end{scope}
+\begin{scope}[xshift=8cm]
+\draw [smooth,ultra thick,domain=0:{\rangle/180},samples={1+\rangle/10}] plot (\x,{altitude(\x*180)-0.7}) ;
+\draw [thick,->] ({-2pt},-3.75) -- ({1100/180},-3.75) node [above] {$t$}; 
+\draw [thick,->] (0,{-3.8}) -- (0,1) node [right] {$u_{AB}(t)$} ;
+\end{scope}
+\end{tikzpicture}
+}
+\end{animateinline}
+

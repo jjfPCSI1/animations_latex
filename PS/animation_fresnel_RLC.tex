@@ -1,0 +1,44 @@
+\begin{animateinline}[final,autoplay,loop,controls,poster=last,palindrome]{5}
+    \multiframe{20}{rOMEGA=0.1+0.1}{
+\begin{tikzpicture}[scale=0.75, decoration={coil,aspect=0.4,segment 
+length=3mm,amplitude=3mm}, 
+declare function = {
+H(\x) = 1 /(sqrt((\Q*(\x - 1/\x))^2 + 1)) ;
+phi(\x) = -atan(\Q * (\x - 1/\x)) ;
+uL(\x)  = \Q * \x ;
+uC(\x)  = \Q / \x ;
+}]
+\pgfmathsetmacro{\Q}{2}
+\begin{scope}[xshift=0cm]
+%\draw (4,3.5) node {Amortissement fort} ;
+\clip (-4.5,-4.5) rectangle (4.5,5.5) ;
+\draw [->,thick] (0,-4) -- (0,4.5) node [left] {$\Im(\co{u})$};
+\draw [->,thick] (-1,0) -- (3,0) node [above] {$\Re(\co{u})$};
+\draw [->,ultra thick] (0,0) -- (0,{uL(\rOMEGA)})   node [left]  {$\co{u}_L$} ;
+\draw [->,ultra thick] (0,{uL(\rOMEGA)}) --++ (1,0) node [above] {$\co{u}_R$} ;
+\draw [->,ultra thick] (1,{uL(\rOMEGA)}) --++ (0,{-uC(\rOMEGA)}) node [right] {$\co{u}_C$} ;
+\draw [->,ultra thick] (0,0) -- (1,{uL(\rOMEGA)-uC(\rOMEGA)})   node [pos=0.5,above]  {$\co{E}$} ;
+\draw [->,thick] (0.4,0) arc (0:{int(0-phi(\rOMEGA))}:0.4) node [right] {\small$-\ph$} ;
+\end{scope}
+\begin{scope}[xshift=4cm]
+%\draw [ultra thick, domain=0.1:2, samples={\rOMEGA/0.1*2+1}] plot (\x,{H(\x)*2}) ;
+\draw [ultra thick,domain=0.1:2,samples=100] plot (2*\x,{H(\x)*3} ) ;
+\draw [->,thick] (-10pt,0) -- (4.5,0) node [above] {$\omega$} ;
+\draw [->,thick] (0,-10pt) -- (0,4.5) node [right] {$A(\omega)=\abs{\co{u}_R}/\abs{\co{E}}$} ;
+\draw [dashed,thick] (2,0) node [below] {$\omega_0$} --++ (0,3) --++ (-2,0) node [left] {$1$} ; 
+\filldraw [black] ({2*\rOMEGA},{3*H(\rOMEGA)}) circle (2pt) ;
+\draw (1,-2) node [left] {$\omega=\rOMEGA\,\omega_0$} ;
+\end{scope}
+\begin{scope}[xshift=10cm]
+%\draw [ultra thick, domain=0.1:2, samples={\rOMEGA/0.1*2+1}] plot (\x,{H(\x)*2}) ;
+\draw [ultra thick,domain=0.1:2,samples=100] plot (2*\x,{phi(\x)/180*5} ) ;
+\draw [->,thick] (-10pt,0) -- (4.5,0) node [above] {$\omega$} ;
+\draw [->,thick] (0,-4) -- (0,4.5) node [right] {$\ph(\omega)$} ;
+\filldraw [black] ({2*\rOMEGA},{phi(\rOMEGA)/180*5}) circle (2pt) ;
+\draw [dashed,thick] (0,2.5) node [left] {$\pi/2$} -- (4,2.5) ;
+\draw [dashed,thick] (0,-2.5) node [left] {$-\pi/2$} -- (4,-2.5) ;
+\end{scope}
+\end{tikzpicture}
+}
+\end{animateinline}
+

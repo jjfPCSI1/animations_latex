@@ -1,0 +1,36 @@
+%
+\begin{animateinline}[autoplay,loop,controls]{10}  
+    \multiframe{36}{rangle=180+10}{
+\begin{tikzpicture}[scale=0.75, decoration={coil,aspect=0.4,segment
+length=3mm,amplitude=3mm}]
+\pgfmathsetmacro{\amplitude}{1}
+\pgfmathsetmacro{\A}{0.28}
+\pgfmathsetmacro{\longueur}{3 + \A*cos(\rangle) - \amplitude*sin(\rangle)}
+\pgfmathsetmacro{\taille}{1.1*\longueur}
+%ressort
+\tikzset{ressort/.style={thick,gray,smooth}}
+\begin{scope}[xshift=5cm]
+\draw[ressort,decorate,decoration={segment length=\taille mm}] (0.3,{2+\A*cos(\rangle)})--(0.3,{-1+\amplitude*sin(\rangle)}) ;   
+\fill [pattern=north east lines] (-0.5,4.2) rectangle (0.5,4.5); %bloc qui 
+tient le ressort
+\draw[thick,gray] (-0.5,4.2) -- (0.5,4.2); %bloc qui tient le ressort
+\draw[thick,gray] (0.3,3.7) -- (0.3,{2+\A*cos(\rangle)}); %tige au dessus ressort
+\draw[thick,gray] (0,4.2) -- (0,3.9);
+%fin ressort
+\end{scope}
+\draw (0,-2) rectangle (2,-0.5) node [midway, above=0.15cm ] {Moteur};
+\draw (5,3.6) circle (0.28cm);
+\draw (1.5,-1.5) circle (0.28cm);
+\filldraw [black] ({1.5+0.28*cos(\rangle-135)},{-1.5+0.28*sin(\rangle-135)}) circle (0.08cm);
+\draw [gray] ({1.5+0.28*cos(\rangle-135)},{-1.5+0.28*sin(\rangle-135)}) -- (4.7,3.7);
+\draw [thick, gray] (5.3,{-1+\amplitude*sin(\rangle)})--(5.3,{-1.9+\amplitude*sin(\rangle)});
+\draw [color=white,ball color=gray,smooth] (5.3,{-1.7+\amplitude*sin(\rangle)}) circle (0.4) ;
+%eprouvette rempli de solution
+\draw [gray, very thick] (4.6,-4) --++ (0,5);
+\draw [gray, very thick] (6.0,-4) --++ (0,5);
+\draw [gray, very thick] (3.6,-4) --++ (3.4,0);
+\fill [gray,opacity=0.2] (4.6,-4) rectangle (6.0,0);
+%fin eprouvette
+\end{tikzpicture}
+}
+\end{animateinline}
