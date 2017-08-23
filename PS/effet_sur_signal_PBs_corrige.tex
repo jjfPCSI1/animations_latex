@@ -1,0 +1,100 @@
+{%
+\sisetup{round-mode=places,round-precision=1}
+\begin{animateinline}[final,autoplay,controls,poster=last]{1}
+    \multiframe{10}{iCOUNT=1+1}{
+\begin{tikzpicture}[declare function = {
+GdB(\x) = 20*log10(1 / sqrt((1-(\x/\wZ)^2)^2 + (\x/(\Q*\wZ))^2) ;
+phase(\x) = 0-90 - atan(10*(\x/\wZ-\wZ/\x));
+}]
+\pgfkeys{/pgf/number format/.cd, set thousands separator={\,}}%
+\pgfmathsetmacro{\Q}{10}
+\pgfmathsetmacro{\wZ}{37}
+\pgfmathsetmacro{\wUN}{30}
+\pgfmathsetmacro{\wDEUX}{250}
+\pgfmathsetmacro{\AUN}{2}
+\pgfmathsetmacro{\ADEUX}{10}
+\pgfmathsetmacro{\GdBUN}{GdB(\wUN)}
+\pgfmathsetmacro{\HUN}{\AUN*10^(\GdBUN/20)}
+\pgfmathsetmacro{\GdBDEUX}{GdB(\wDEUX)}
+\pgfmathsetmacro{\HDEUX}{\ADEUX*10^(\GdBDEUX/20)}
+\pgfmathsetmacro{\PHIUN}{phase(\wUN)}
+\pgfmathsetmacro{\PHIDEUX}{phase(\wDEUX)}
+\tikzstyle{every pin}=[fill=white,draw=red,font=\footnotesize]
+\tikzset{every pin edge/.style={draw=red}}
+\begin{semilogxaxis}[
+  name=bode,
+%  enlargelimits=false,
+  width=0.45\linewidth,
+  grid=both,
+  ymin=-60,ymax=20,
+  xlabel= Pulsation $\omega$,
+  ylabel= GdB,
+  x unit= rad/s,
+  y unit= dB,
+%  log basis y=10,
+  log basis x=10,
+  %dB definition taken as 20 log10(x)
+%  yticklabel={\pgfmathparse{20*(\tick)}\pgfmathprintnumber[fixed]{\pgfmathresult}},
+  xticklabel={\pgfmathparse{10^(\tick)}\pgfmathprintnumber[fixed]{\pgfmathresult}},
+  domain=1:1e3,samples=250
+]
+%\addplot+[no marks,thick]{20*log10(1 / sqrt((1-(x/\wZ)^2)^2 + (x/(\Q*\wZ))^2)};
+\addplot+[no marks,thick]{GdB(x)};
+\ifthenelse{\iCOUNT > 2}{
+  \draw [red,dashed,thick] (axis cs:\wUN,-60) node [above] {$\wUN$} -- (axis cs:\wUN,\GdBUN);
+  \node[coordinate,pin=left:{\color{red} GdB$_1\null=\num{\GdBUN}$}] at (axis cs:\wUN,\GdBUN) {};
+  \ifthenelse{\iCOUNT > 6}{
+    \draw [red,dashed,thick] (axis cs:\wDEUX,-60) node [above] {$\wDEUX$} -- (axis cs:\wDEUX,\GdBDEUX);
+    \node[coordinate,pin=left:{\color{red} GdB$_2\null=\num{\GdBDEUX}$}] at (axis cs:\wDEUX,\GdBDEUX) {};
+  }{}
+}{}
+%\draw [red,dashed,thick] (axis cs:10,1) -- (axis cs:10,1e-2);
+\end{semilogxaxis}
+%\end{tikzpicture}
+%\begin{tikzpicture}[declare function={
+%phase(\x) = 0-90 - atan(10*(\x/\wZ-\wZ/\x));
+%}]
+\begin{scope}[xshift=0.45\linewidth]
+\begin{semilogxaxis}[log basis x=10,grid=both,
+  xlabel= Pulsation $\omega$,
+  ylabel= Phase $\varphi$,
+  width = 0.45\linewidth,
+  x unit= rad/s,
+  y unit= \degre,
+  ymin = -180, ymax = 0,
+  ytick = {0,-30,-60,-90,-120,-150,-180},
+  xticklabel={\pgfmathparse{10^(\tick)}\pgfmathprintnumber[fixed]{\pgfmathresult}},
+  samples=250,
+  domain=1:1e3,
+  xmin=1,xmax=1000,
+  ]
+%\addplot+[no marks,thick]{-90 - atan(10*(x/\wZ-\wZ/x))} ;
+\addplot+[no marks,thick]{phase(x)};
+\ifthenelse{\iCOUNT > 4}{
+  \draw [red,dashed,thick] (axis cs:\wUN,-180) node [above] {$\wUN$} -- (axis cs:\wUN,\PHIUN);
+  \node[coordinate,pin=right:{\color{red} $\ph_1=\num{\PHIUN}\degre$}] at (axis cs:\wUN,\PHIUN) {};
+  \ifthenelse{\iCOUNT > 8}{
+    \draw [red,dashed,thick] (axis cs:\wDEUX,-180) node [above] {$\wDEUX$} -- (axis cs:\wDEUX,\PHIDEUX);
+    \node[coordinate,pin=above:{\color{red} $\ph_2=\num{\PHIDEUX}\degre$}] at (axis cs:\wDEUX,\PHIDEUX) {};
+  }{}
+}{}
+\end{semilogxaxis}
+\end{scope}
+\draw (4,-1.7) node [right] {$u\e{e}(t) = 
+\num{\AUN}\,\cos(
+	\ifthenelse{\iCOUNT > 1}{{\color{red}\num{\wUN}}}{\num{\wUN}}\times t) + 
+\num{\ADEUX}\,\sin(
+    \ifthenelse{\iCOUNT > 5}{{\color{red}\num{\wDEUX}}}{\num{\wDEUX}}\times t)$} ;
+\draw (4,-2.5) node [right] {$u\e{s}(t) = 
+\ifthenelse{\iCOUNT < 4}{{?}}{{\color{red}
+  \ifthenelse{\iCOUNT < 5}{\AUN  \times10^{\num{\GdBUN}  /20}}{\num{\HUN  }}}}
+\,\cos(\num{\wUN}\times t + 
+\ifthenelse{\iCOUNT < 5}{{?}}{{\color{red}\ph_1}}) + 
+\ifthenelse{\iCOUNT < 8}{{?}}{{\color{red}
+  \ifthenelse{\iCOUNT < 9}{\ADEUX\times10^{\num{\GdBDEUX}/20}}{\num{\HDEUX}}}}
+\,\sin(\num{\wDEUX}\times t + 
+\ifthenelse{\iCOUNT < 9}{{?}}{{\color{red}\ph_2}})$} ;
+\end{tikzpicture}
+}
+\end{animateinline}
+}
