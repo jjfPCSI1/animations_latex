@@ -2,7 +2,8 @@
 % #1 -> longueur du ressort
 % #2 -> symbole associé ($\ell_0$ par exemple)
 \newcommand{\ressort}[2]{
-\draw[ressort,decorate,decoration={coil,aspect=0.4,segment length = #1 mm,amplitude=3mm}] 
+\pgfmathsetmacro{\taille}{1.2*#1}
+\draw[ressort,decorate,decoration={coil,aspect=0.4,segment length = \taille mm,amplitude=3mm}] 
 (0,-0.3)--(0,-#1) ;
 \draw[thick,gray] (0,0) -- (0,-0.3); 
 \fill [pattern=north east lines] (-0.5,0) rectangle (0.5,0.3); %bloc qui tient le ressort
