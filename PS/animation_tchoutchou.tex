@@ -1,0 +1,59 @@
+\begin{animateinline}[final,autoplay,loop,controls,poster=last]{10}
+    \multiframe{36}{rangle=60+10}{
+    	\begin{tikzpicture}[declare function = {
+    	  xA(\t) = \R*cos(\t) ;
+    	  yA(\t) = \R*sin(\t) ;
+    	  xP(\t) = xA(\t) + sqrt(\ELL^2 - (yA(\t))^2) ;
+    	}]
+    	% Les constantes
+        \pgfmathsetmacro{\rangleSTART}{60}
+    	\pgfmathsetmacro{\R}{1}
+    	\pgfmathsetmacro{\ELL}{3*\R}
+    	
+    	% On commence par planter le décor
+    	% L'axe:
+    	\draw [->] ({-1.2*\R},0) -- ({1.2*(\ELL+\R)},0) node [below] {$x$} ;
+    	% La roue
+    	\draw (0,0) circle (\R) ;
+    	\filldraw (0,0) circle (1pt) node [below] {$O$} ;
+    	% Le cylindre du piston
+    	\draw ({\ELL+\R - 2.2*\R},{\R/2}) -- ({1.05*(\ELL+\R)},{\R/2}) 
+    	 -- ({1.05*(\ELL+\R)},{-\R/2}) -- ({\ELL+\R - 2.2*\R},{-\R/2}) ;
+    	
+    	% Le point A qui se balade sur le cercle
+    	\coordinate (A) at ({xA(\rangle)},{yA(\rangle)}) ;
+    	\filldraw (A) circle (1pt) node [above] {$A$} ;
+    	
+    	% Le point P sur le piston
+    	\coordinate (P) at ({xP(\rangle)},0) ;
+    	\filldraw (P) circle (1pt) node [above right=-2pt] {$P$} ;
+    	\draw ($(P)-(0,{\R/2})$) -- ($(P)+(0,{\R/2})$) ;
+    	
+    	% Les liaisons
+    	\draw (0,0) -- (A) -- (P) ;
+    	
+    	% Dessinons l'évolution au cours du temps
+    	\begin{scope}[shift={({1.4*(\ELL+\R)},{-\ELL})}]
+    	    \draw [->] (0,{\ELL-2}) -- (0,{\ELL+2}) node [left] {$x(t)$};
+    	    \draw [->] (-0.2,\ELL) node [left] {$\ell$} -- (4,\ELL) node [above] {$t$};
+    	    \draw [dashed] (0,{\ELL+\R}) node [left] {$\ell+R$} -- (4,{\ELL+\R}) ;
+    	    \draw [dashed] (0,{\ELL-\R}) node [left] {$\ell-R$} -- (4,{\ELL-\R}) ;
+    	    \pgfmathsetmacro{\tmax}{int((\rangle-\rangleSTART)/10)}
+    	    \draw [thick] (0,{xP(\rangleSTART)})
+    	       \foreach \t in {0,...,\tmax} {
+    	         -- ({\t/10},{xP(\t*10+\rangleSTART)})
+    	       } 
+    	       ;
+    	    \draw [dotted] (0,{\ELL+xA(\rangleSTART)})
+    	       \foreach \t in {0,...,\tmax} {
+    	         -- ({\t/10},{\ELL+xA(\t*10+\rangleSTART)})
+    	       } 
+    	       ;
+    	    \draw [dotted] (0.5,{\ELL+1.5*\R}) --++ (0.5,0) node [right] {fonction sinusoïdale} ;
+    	\end{scope}
+    	
+    	
+    	\end{tikzpicture}
+    }
+\end{animateinline}  
+  
