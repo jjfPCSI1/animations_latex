@@ -19,7 +19,12 @@ PREAMBLE = '\documentclass{article}
 \usepackage{vmargin}
 \setmarginsrb{10mm}{10mm}{10mm}{5mm}{12pt}{11mm}{0pt}{11mm}
 
-\newcommand{\titre}[1]{\hfill{\Large\textbf{#1}}\hfill \medskip}
+\newcommand{\titre}[1]{
+\begin{center}
+  {\Large\textbf{#1}}
+\end{center}
+
+}
 
 \begin{document}
 '
