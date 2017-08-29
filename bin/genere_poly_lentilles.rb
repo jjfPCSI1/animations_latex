@@ -19,6 +19,8 @@ PREAMBLE = '\documentclass{article}
 \usepackage{vmargin}
 \setmarginsrb{10mm}{10mm}{10mm}{5mm}{12pt}{11mm}{0pt}{11mm}
 
+\newcommand{\titre}[1]{\hfil{\Large #1}}
+
 \begin{document}
 '
 
