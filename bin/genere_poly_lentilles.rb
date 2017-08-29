@@ -19,7 +19,7 @@ PREAMBLE = '\documentclass{article}
 \usepackage{vmargin}
 \setmarginsrb{10mm}{10mm}{10mm}{5mm}{12pt}{11mm}{0pt}{11mm}
 
-\newcommand{\titre}[1]{\hfil{\Large #1}}
+\newcommand{\titre}[1]{\hfill{\Large\textbf{#1}}\hfill \medskip}
 
 \begin{document}
 '
@@ -29,7 +29,7 @@ POSTAMBLE = '\end{document}'
 File.open('poly_lentilles.tex','w') do |f|
 
   f.puts PREAMBLE
-  50.times do |i|
+  8.times do |i|
     exos_objet = []
     exos_image = []
 #    [LCO,LCI,LDO,LDI,MCO,MCI,MDO,MDI].each do |array|
