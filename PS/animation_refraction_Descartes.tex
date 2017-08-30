@@ -8,6 +8,8 @@
     	    % Le rayon incident
     		\draw [thick,->,rotate={90+\angle}] (2,0)  -- (1,0) ;
     		\draw [thick,rotate={90+\angle}] (1,0) -- (0,0) ;
+    		% sa continuité
+    		\draw [dotted,rotate={-90+\angle}] (2,0)  -- (0,0) ;
     		% Le rayon réfléchi
     		\draw [help lines,rotate={90-\angle}] (2,0) -- (1,0) ;
     		\draw [help lines,<-,rotate={90-\angle}] (1,0) -- (0,0) ;
