@@ -1,0 +1,33 @@
+\begin{animateinline}[autoplay,loop,controls]{2}
+    \multiframe{18}{iangle=60+10}{
+    	\begin{tikzpicture}[declare function={
+    	firstCut(\x) = (\x > 180)*(0-180) + \x ;     % Ces deux fonctions permettent de
+    	secondCut(\x)= (\x > 90) *(180 - 2*\x) + \x ;% se ramener entre 0 et 90
+    	}]
+    		% On se ramène entre 0 et 90
+            \pgfmathsetmacro{\ANGLE}{firstCut(\iangle)}
+            \pgfmathsetmacro{\ANGLE}{secondCut(\ANGLE)}
+            % L'interface
+    	    \draw (-2.25,0) -- (2.25,0) ;
+    	    \foreach \x in {-9,...,8} {
+    	       \draw ({\x/4},-0.25) -- ({\x/4+0.25},0) ;
+    	    }
+    	    % La normale
+    	    \draw [dashed] (0,2) node [above] {$N$} -- (0,-0.2) ;
+    	    % Le rayon incident
+    		\draw [thick,->,rotate={90+\ANGLE}] (2,0) node [above] {$I$} -- (1,0) ;
+    		\draw [thick,rotate={90+\ANGLE}] (1,0) -- (0,0) node [below] {$S$};
+    		% Le rayon réfléchi
+    		\draw [thick,rotate={90-\ANGLE}] (2,0) node [above] {$R$} -- (1,0) ;
+    		\draw [thick,<-,rotate={90-\ANGLE}] (1,0) -- (0,0) ;
+    		% L'angle incident
+    		\draw (0,0.3) arc (90:90+\ANGLE:0.3) ;
+    		\draw [rotate={\ANGLE/2}] (0,0.45) node {$i$} ;
+    		% L'angle réfléchi
+    		\draw (0,0.35) arc (90:90-\ANGLE:0.35) ;
+    		\draw (0,0.4) arc (90:90-\ANGLE:0.4) ;
+    		\draw [rotate={-\ANGLE/2}] (0,0.63) node {$i'$} ;
+    		%\draw (0,1) node [above] {$\iangle$} node [below] {$\ANGLE$} ;
+    	\end{tikzpicture}
+    }
+\end{animateinline}
