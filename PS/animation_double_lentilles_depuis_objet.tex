@@ -1,0 +1,64 @@
+
+  
+  \begin{tikzpicture}[scale=0.5]
+    \clip (-17,-5) rectangle (17,5) ;
+    \draw [help lines] (-16,-4) grid [step=1] (16,4) ; %% Le quadrillage
+    \draw [->,thick] (-16.5,0) -- (16.5,0) ; %% L'axe optique
+
+    \draw [ultra thick] (3.0,-4) -- (3.0,4)  ; %% Le corps du système 
+    \draw [ultra thick] (2.5,-4.5) -- (3.0,-4) -- (3.5,-4.5)
+                         (2.5,4.5) -- (3.0, 4) -- (3.5,4.5) ;
+    \filldraw [black] (-3.0,0) circle (2pt) node [above left=-2pt] {$F_1'$};
+    \filldraw [black] (9.0,0) circle (2pt) node [above right=-2pt] {$F_1$} ;
+    \filldraw [black] (3.0,0) circle (2pt) node [above right=-2pt] {$O_1$} ;
+    
+    \draw [ultra thick] (6.0,-4) -- (6.0,4)  ; %% Le corps du système 
+    \draw [ultra thick] (5.5,-3.5) -- (6.0,-4) -- (6.5,-3.5)
+                         (5.5,3.5) -- (6.0, 4) -- (6.5,3.5) ;
+    \filldraw [black] (9.0,0) circle (2pt) node [above right=-2pt] {$F_2'$};
+    \filldraw [black] (3.0,0) circle (2pt) node [above left=-2pt] {$F_2$} ;
+    \filldraw [black] (6.0,0) circle (2pt) node [above right=-2pt] {$O_2$} ;
+    
+      \draw [->,ultra thick] (13.0,0) node [below] {$A$} -- (13.0,2.0) node [above] {$B$} ;
+      
+      \draw [->,ultra thick] (-12.0,0) node [above] {$A_1$} -- (-12.0,-3.0) node [below] {$B_1$} ;
+      
+      \draw [->,ultra thick] (9.6,0) node [below] {$A'$} -- (9.6,0.6) node [above] {$B'$} ;
+      
+    \draw [blue, thick ,>>-] (-16,2.0) -- (3.0,2.0);
+    \draw [blue, thick , dashed] (3.0,2.0) -- (6.0,2.0);
+    
+    \draw [blue, thick , dashed] (-15.0,-4.0) -- (3.0,2.0);
+    \draw [blue, thick ,->>] (3.0,2.0) -- (6.0,3.0);
+    
+    \draw [blue, thick ,>>-] (-16,-3.8) -- (3.0,0.0);
+    \draw [blue, thick , dashed] (3.0,0.0) -- (6.0,0.6);
+    
+    \draw [blue, thick , dashed] (-16,-3.8) -- (3.0,0.0);
+    \draw [blue, thick ,->>] (3.0,0.0) -- (6.0,0.6);
+    
+    \draw [blue, thick ,>>-] (1.0,-4.0) -- (3.0,-3.0);
+    \draw [blue, thick , dashed] (3.0,-3.0) -- (6.0,-1.5);
+    
+    \draw [blue, thick , dashed] (-16,-3.0) -- (3.0,-3.0);
+    \draw [blue, thick ,->>] (3.0,-3.0) -- (6.0,-3.0);
+    
+    \draw [red, thick ,>>-] (3.0,-3.0) -- (6.0,-3.0);
+    \draw [red, thick , dashed] (6.0,-3.0) -- (16,-3.0);
+    
+    \draw [red, thick , dashed] (5.0,-4.0) -- (6.0,-3.0);
+    \draw [red, thick ,->>] (6.0,-3.0) -- (13.0,4.0);
+    
+    \draw [red, thick ,>>-] (3.0,-0.5) -- (6.0,0.0);
+    \draw [red, thick , dashed] (6.0,0.0) -- (16,1.667);
+    
+    \draw [red, thick , dashed] (3.0,-0.5) -- (6.0,0.0);
+    \draw [red, thick ,->>] (6.0,0.0) -- (16,1.667);
+    
+    \draw [red, thick ,>>-] (3.0,0.0) -- (6.0,0.6);
+    \draw [red, thick , dashed] (6.0,0.6) -- (16,2.6);
+    
+    \draw [red, thick , dashed] (3.0,0.6) -- (6.0,0.6);
+    \draw [red, thick ,->>] (6.0,0.6) -- (16,0.6);
+    
+  \end{tikzpicture}
