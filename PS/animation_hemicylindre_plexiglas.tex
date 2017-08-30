@@ -1,0 +1,41 @@
+\begin{animateinline}[autoplay,loop,controls]{2}
+    \multiframe{36}{iangle=60+05}{
+    	\begin{tikzpicture}[declare function={
+    	firstCut(\x) = (\x > 180)*(0-180) + \x ;     % Ces deux fonctions permettent de
+    	secondCut(\x)= (\x > 90) *(180 - 2*\x) + \x ;% se ramener entre 0 et 90
+    	sortie(\x)   = asin(sin(\x)/1.5) ;
+    	}]
+            % Pour l'arrondi à la fin
+            \sisetup{round-mode=places,round-precision=1}
+    		% On se ramène entre 0 et 90
+            \pgfmathsetmacro{\ANGLE}{firstCut(\iangle)}
+            \pgfmathsetmacro{\ANGLE}{secondCut(\ANGLE)}
+            \pgfmathsetmacro{\ANGLEs}{sortie(\ANGLE)}
+            % L'interface
+    	    \draw (0,-2.25) -- (0,2.25) ;
+    	    \draw (0,-2) arc (-90:90:2) ;
+    	    % La normale
+    	    \draw [dashed] (-2.2,0) node [left] {$N$} -- (2.8,0) ;
+    	    % Le rayon incident
+    		\draw [thick,->,rotate={180+\ANGLE}] (2,0) node [left] {$I$} -- (1,0) ;
+    		\draw [thick,rotate={180+\ANGLE}] (1,0) -- (0,0) node [above left] {$S$};
+    		% Le rayon réfléchi
+    		\draw [thick,rotate={\ANGLEs}] (2.3,0) node [right] {$R$} -- (1,0) ;
+    		\draw [thick,<-,rotate={\ANGLEs}] (1,0) -- (0,0) ;
+    		% L'angle incident
+    		\draw (-0.3,0) arc (180:180+\ANGLE:0.3) ;
+    		\draw [rotate={\ANGLE/2}] (-0.45,0) node {$i_1$} ;
+    		% L'angle réfléchi
+    		\draw (0.35,0) arc (0:\ANGLEs:0.35) ;
+    		\draw (0.4,0) arc (0:\ANGLEs:0.4) ;
+    		\draw [rotate={\ANGLEs/2}] (0.63,0) node {$i_2$} ;
+    		% Les légendes
+    		\draw (0,1.2) node [left] {$n_1=1$}    ;
+    		\draw (0,1.2) node [right] {$n_2=1.5$} ;
+    		\draw (0,1.6) node [left] {air}    ;
+    		\draw (0,1.6) node [right] {plexi} ;
+    		\draw (-1.5,2) node {$i_1=\ANGLE$\textdegree} ;
+    		\draw (1.7,2) node {$i_2=\num{\ANGLEs}$\textdegree} ;
+    	\end{tikzpicture}
+    }
+\end{animateinline}
