@@ -1,0 +1,42 @@
+\newcommand{\refretour}[2]{
+            \pgfmathsetmacro{\angle}{#1}
+            \pgfmathsetmacro{\angles}{#2}
+    	    % Le rayon incident
+    		\draw [thick,->,rotate={90+\angle}] (2,0)  -- (1,0) ;
+    		\draw [thick,rotate={90+\angle}] (1,0) -- (0,0) ;
+    		% Le rayon réfléchi
+    		\draw [thin,rotate={90-\angle}] (2,0) -- (1,0) ;
+    		\draw [thin,<-,rotate={90-\angle}] (1,0) -- (0,0) ;
+    		% Le rayon réfracté
+    		\draw [thick,rotate={-90+\angles}] (2,0) -- (1,0) ;
+    		\draw [thick,<-,rotate={-90+\angles}] (1,0) -- (0,0) ;
+}%
+\begin{animateinline}[autoplay,loop,controls]{2}
+    \multiframe{36}{iangle=60+5}{
+    	\begin{tikzpicture}[declare function={
+    	firstCut(\x) = (\x > 180)*(0-180) + \x ;     % Ces deux fonctions permettent de
+    	secondCut(\x)= (\x > 90) *(180 - 2*\x) + \x ;% se ramener entre 0 et 90
+    	sortie(\x)   = asin(sin(\x)/1.33) ;
+    	}]
+    		% On se ramène entre 0 et 90
+            \pgfmathsetmacro{\ANGLE}{firstCut(\iangle)}
+            \pgfmathsetmacro{\ANGLE}{secondCut(\ANGLE)}
+            % Angle réfracté en sortie
+            \pgfmathsetmacro{\ANGLEs}{sortie(\ANGLE)}
+            % L'interface
+    	    \draw (-2.25,0) -- (2.25,0) ;
+    	    % La normale
+    	    \draw [dashed] (0,2) -- (0,-2) ;
+    	    \begin{scope}[red]
+    	    \refretour{\ANGLE}{\ANGLEs}
+    	    \end{scope}
+    	    \begin{scope}[blue,rotate=180]
+    	    \refretour{\ANGLEs}{\ANGLE}
+    	    \end{scope}
+    		% Légendes
+    		\draw (0,2) node [above] {Retour inverse partiel} ;
+    		\draw (-1.5,0) node [above] {$n_1$} ;
+    		\draw (-1.5,0) node [below] {$n_2$} ;
+    	\end{tikzpicture}
+    }
+\end{animateinline}
