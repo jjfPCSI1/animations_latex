@@ -1,0 +1,55 @@
+\begin{animateinline}[autoplay,loop,controls]{2}
+    \multiframe{36}{iangle=60+5}{
+    	\begin{tikzpicture}[declare function={
+    	firstCut(\x) = (\x > 90)*(0-180) + \x ;     % Ces deux fonctions permettent de
+    	secondCut(\x)= (\x > 90) *(180 - 2*\x) + \x ;% se ramener entre 0 et 90
+    	sortie(\x)   = asin(sin(\x)*1.8) ;
+    	ilim(\x)   = asin(sin(\x)/1.8) ;
+    	}]
+    		% On se ramène entre 0 et 180
+            \pgfmathsetmacro{\ANGLE}{firstCut(\iangle)}
+            \pgfmathsetmacro{\ABSANGLE}{int(abs(\ANGLE))}
+            %\pgfmathsetmacro{\ANGLE}{secondCut(\ANGLE)}
+            % Angle limite
+            \pgfmathsetmacro{\ILIM}{int(ilim(90))}
+            % L'interface
+    	    \draw (-2.25,0) -- (2.25,0) ;
+    	    % La normale
+    	    \draw [dashed] (0,2) -- (0,-2) ;
+    	    % Le rayon incident
+    		\draw [thick,->,rotate={90+\ANGLE}] (2,0)  -- (1,0) ;
+    		\draw [thick,rotate={90+\ANGLE}] (1,0) -- (0,0) ;
+    		% Le rayon réfléchi
+    		\ifthenelse{\ABSANGLE>\ILIM}{
+    			\draw [thick,rotate={90-\ANGLE}] (2,0) -- (1,0) ;
+    			\draw [thick,<-,rotate={90-\ANGLE}] (1,0) -- (0,0) ;
+    		}{
+    			\draw [help lines,rotate={90-\ANGLE}] (2,0) -- (1,0) ;
+    			\draw [help lines,<-,rotate={90-\ANGLE}] (1,0) -- (0,0) ;
+	            % Angle réfracté en sortie
+    	        \pgfmathsetmacro{\ANGLEs}{sortie(\ANGLE)}
+	    		% Le rayon réfracté
+    			\draw [thick,rotate={-90+\ANGLEs}] (2,0) -- (1,0) ;
+    			\draw [thick,<-,rotate={-90+\ANGLEs}] (1,0) -- (0,0) ;
+	    		% L'angle réflacté
+    			\draw (0,-0.35) arc (-90:-90+\ANGLEs:0.35) ;
+    			\draw (0,-0.4) arc (-90:-90+\ANGLEs:0.4) ;
+    			\draw [rotate={-90+\ANGLEs/2}] (0.63,0) node {$i_2$} ;
+    		}
+    		% Le cône limite
+    		\draw [thick,dotted,rotate={90+\ILIM}] (2,0) -- (0,0) ;
+    		\draw [thick,dotted,rotate={90-\ILIM}] (2,0) -- (0,0) ;
+    		% L'angle incident
+    		\draw (0,0.3) arc (90:90+\ANGLE:0.3) ;
+    		\draw [rotate={\ANGLE/2}] (0,0.5) node {$i_1$} ;
+    		% L'angle limite
+%    		\draw (0,-1.55) arc (-90:-90+\ILIM:1.55) ;
+    		\draw (0,1.6) arc (90:90-\ILIM:1.6) ;
+%    		\draw (0,-1.65) arc (-90:-90+\ILIM:1.65) ;
+    		\draw [rotate={90-\ILIM/2}] (1.55,0) -- (1.65,0) node [above] {$i\e{1,lim}$} ;
+    		% Légendes
+    		\draw (-1.5,0) node [above] {$n_1$} ;
+    		\draw (-1.5,0) node [below] {$n_2$} ;
+    	\end{tikzpicture}
+    }
+\end{animateinline}
