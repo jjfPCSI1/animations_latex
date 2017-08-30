@@ -1,0 +1,50 @@
+\newcommand{\refraction}[2]{
+            \pgfmathsetmacro{\angle}{#1}
+            \pgfmathsetmacro{\angles}{#2}
+            % L'interface
+    	    \draw (-2.25,0) -- (2.25,0) ;
+    	    % La normale
+    	    \draw [dashed] (0,2) -- (0,-2) ;
+    	    % Le rayon incident
+    		\draw [thick,->,rotate={90+\angle}] (2,0)  -- (1,0) ;
+    		\draw [thick,rotate={90+\angle}] (1,0) -- (0,0) ;
+    		% Le rayon réfléchi
+    		\draw [help lines,rotate={90-\angle}] (2,0) -- (1,0) ;
+    		\draw [help lines,<-,rotate={90-\angle}] (1,0) -- (0,0) ;
+    		% Le rayon réfracté
+    		\draw [thick,rotate={-90+\angles}] (2,0) -- (1,0) ;
+    		\draw [thick,<-,rotate={-90+\angles}] (1,0) -- (0,0) ;
+    		% L'angle incident
+    		\draw (0,0.3) arc (90:90+\angle:0.3) ;
+    		\draw [rotate={\angle/2}] (0,0.5) node {$i_1$} ;
+    		% L'angle réflacté
+    		\draw (0,-0.35) arc (-90:-90+\angles:0.35) ;
+    		\draw (0,-0.4) arc (-90:-90+\angles:0.4) ;
+    		\draw [rotate={-90+\angles/2}] (0.63,0) node {$i_2$} ;
+    		% Légendes
+    		\draw (-1.5,0) node [above] {$n_1$} ;
+    		\draw (-1.5,0) node [below] {$n_2$} ;
+}%
+\begin{animateinline}[autoplay,loop,controls]{2}
+    \multiframe{36}{iangle=60+5}{
+    	\begin{tikzpicture}[declare function={
+    	firstCut(\x) = (\x > 180)*(0-180) + \x ;     % Ces deux fonctions permettent de
+    	secondCut(\x)= (\x > 90) *(180 - 2*\x) + \x ;% se ramener entre 0 et 90
+    	sortie(\x)   = asin(sin(\x)/1.33) ;
+    	}]
+    		% On se ramène entre 0 et 90
+            \pgfmathsetmacro{\ANGLE}{firstCut(\iangle)}
+            \pgfmathsetmacro{\ANGLE}{secondCut(\ANGLE)}
+            % Angle réfracté en sortie
+            \pgfmathsetmacro{\ANGLEs}{sortie(\ANGLE)}
+            \draw (0,2.5) node [above]{$n_2>n_1$} ;
+            \draw (0,2) node [above] {On se rapproche de la normale} ;
+    	    \refraction{\ANGLE}{\ANGLEs}
+    	    \begin{scope}[shift={(5,0)}]
+            \draw (0,2.5) node [above]{$n_2<n_1$} ;
+            \draw (0,2) node [above] {On s'éloigne de la normale} ;
+    	    \refraction{\ANGLEs}{\ANGLE}
+    	    \end{scope}
+    	\end{tikzpicture}
+    }
+\end{animateinline}
