@@ -23,7 +23,7 @@ Le document poly_lentilles.pdf est conçu pour être distribué aux élèves (4
 pages par 4 pages, imprimé en recto-verso) pour que ceux-ci puissent vérifier 
 leurs constructions. La version pdf devrait leur permettre de visualiser la 
 construction au fur et à mesure du tracé des rayons en partant soit de 
-l'objet, soit de l'image. Les scripts (en Ruby) qui ont permit sa fabrication 
+l'objet, soit de l'image. Les scripts (en Ruby) qui ont permis sa fabrication 
 sont présents dans le répertoire bin/
 
 # Remarques
