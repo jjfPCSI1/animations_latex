@@ -41,7 +41,7 @@ for fichier in fichiers:
     FICHIERS_TEX.append(fichier_tex)
 
 # Puis l'execution
-for fichier_tex in FICHIERS_TEX:
-    subprocess.call(['pdflatex',fichier_tex])
-    subprocess.call(['pdflatex',fichier_tex])
+#for fichier_tex in FICHIERS_TEX:
+#    subprocess.call(['pdflatex',fichier_tex])
+#    subprocess.call(['pdflatex',fichier_tex])
     
