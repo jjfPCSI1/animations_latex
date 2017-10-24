@@ -127,8 +127,7 @@ for sp in ['spatial','temporel']:
 
 print(FICHIERS)
 
-squelette = r""" 
-\documentclass{article}
+squelette = r"""\documentclass{article}
 
 \input{sty_files/packages.sty}
 \input{sty_files/macros.sty}
