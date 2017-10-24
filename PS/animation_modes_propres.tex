@@ -1,0 +1,41 @@
+\newcommand{\corde}[2]{
+\pgfmathsetmacro{\LAMBDA}{#1}
+\pgfmathsetmacro{\NB}{#2}
+% Mur de gauche 
+\draw[thick] (0,-0.5) -- (0,0.5);
+\fill [pattern=north east lines] (0,0.5) rectangle (-0.3,-0.5);
+% Mur de droite
+\draw[thick] (5,-0.5) -- (5,0.5);
+\fill [pattern=north east lines] (5,0.5) rectangle ({5+0.3},-0.5);
+% les différentes ondes
+\foreach \A in {-5,...,5} {
+    \draw [domain=0:5,thick,samples=50,gray] plot (\x,{\A/10*sin(360*\x/\LAMBDA)}) ;
+    }
+% Celle qu'on veut mettre en valeur
+\draw [domain=0:5,thick,samples=50] plot (\x,{\NB/10*sin(360*\x/\LAMBDA)}) ;
+}
+
+\begin{animateinline}[final,palindrome,autoplay,controls,poster=last]{5}
+    \multiframe{11}{inb=-5+01}{
+    	\begin{tikzpicture}
+    	\corde{10}{\inb}
+    	\end{tikzpicture}
+    }
+\end{animateinline}  
+
+\begin{animateinline}[final,palindrome,autoplay,controls,poster=last]{10}
+    \multiframe{11}{inb=-5+01}{
+    	\begin{tikzpicture}
+    	\corde{5}{\inb}
+    	\end{tikzpicture}
+    }
+\end{animateinline}  
+
+\begin{animateinline}[final,palindrome,autoplay,controls,poster=last]{15}
+    \multiframe{11}{inb=-5+01}{
+    	\begin{tikzpicture}
+    	\corde{3.333}{\inb}
+    	\end{tikzpicture}
+    }
+\end{animateinline}  
+  
