@@ -1,37 +1,39 @@
 # Animations en LaTeX
 
 Ce projet a pour but de partager quelques animations LaTeX pour illustrer les 
-cours de première année de CPGE. Il rassemble quelques dessins en TikZ (dont 
-certains sont originaires du site physagreg.fr) adaptés pour être animés.
+cours de premiÃ¨re annÃ©e de CPGE. Il rassemble quelques dessins en TikZ (dont 
+certains sont originaires du site physagreg.fr) adaptÃ©s pour Ãªtre animÃ©s.
 
 ATTENTION: le package animate utilise certaines invocations de magie noire que 
-seul Acrobat Reader est capable de correctement rendre à l'écran. Il faut donc 
-forcément l'installer pour visualiser les animations correspondantes.
+peu de lecteur pdf peuvent correctement rendre Ã  l'Ã©cran. Ã€ ma connaissance,
+les suivants fonctionnent correctement:
+* Acrobat Reader ;
+* [Okular](https://okular.kde.org/fr/), logiciel libre qui fonctionne sous Linux, Windows et mÃªme MacOS via MacPorts.
 
 # Utilisation
 
-Ne pas oublier de compiler deux fois pour voir le résultat s'animer dans Acrobat Reader
+Ne pas oublier de compiler deux fois pour voir le rÃ©sultat s'animer dans Acrobat Reader
 
 Le fichier minimaliste.tex permet de tester les animations dans un cadre 
-minimal qui devrait être présent dans toute distribution LaTeX.
+minimal qui devrait Ãªtre prÃ©sent dans toute distribution LaTeX.
 
-Le fichier complet.tex rassemble quand à lui l'ensemble des animations 
-classées en fonction du cours associé (il met bien plus longtemps à 
+Le fichier complet.tex rassemble quand Ã  lui l'ensemble des animations 
+classÃ©es en fonction du cours associÃ© (il met bien plus longtemps Ã  
 compiler...)
 
-Le document poly_lentilles.pdf est conçu pour être distribué aux élèves (4 
-pages par 4 pages, imprimé en recto-verso) pour que ceux-ci puissent vérifier 
+Le document poly_lentilles.pdf est conÃ§u pour Ãªtre distribuÃ© aux Ã©lÃ¨ves (4 
+pages par 4 pages, imprimÃ© en recto-verso) pour que ceux-ci puissent vÃ©rifier 
 leurs constructions. La version pdf devrait leur permettre de visualiser la 
-construction au fur et à mesure du tracé des rayons en partant soit de 
+construction au fur et Ã  mesure du tracÃ© des rayons en partant soit de 
 l'objet, soit de l'image. Les scripts (en Ruby) qui ont permis sa fabrication 
-sont présents dans le répertoire bin/
+sont prÃ©sents dans le rÃ©pertoire bin/
 
 # Remarques
 
-Malheureusement, pour que l'animation fonctionne, il faut forcément qu'elle 
-soit compilée dans le document et non incluse à l'aide d'un \includegraphics 
-ou autre. La compilation est donc bien plus lente, d'où la nécessité d'un 
-fichier minimal qui permettra de préparer l'animation sans que toutes les 
-autres ne soient recompilées au passage.
+Malheureusement, pour que l'animation fonctionne, il faut forcÃ©ment qu'elle 
+soit compilÃ©e dans le document et non incluse Ã  l'aide d'un \includegraphics 
+ou autre. La compilation est donc bien plus lente, d'oÃ¹ la nÃ©cessitÃ© d'un 
+fichier minimal qui permettra de prÃ©parer l'animation sans que toutes les 
+autres ne soient recompilÃ©es au passage.
 
 
